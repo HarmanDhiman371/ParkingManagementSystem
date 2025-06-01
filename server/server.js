@@ -1,18 +1,19 @@
 const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const parkingRoutes = require('./routes/parkingRoutes');
-
 const app = express();
+const authRoutes = require('./routes/authRoutes');
+const cors = require('cors');
 
-// Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
-// Routes
-app.use('/api', parkingRoutes);
+const { sequelize } = require('./models');
 
-const PORT = 3001;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.use('/api/auth', authRoutes);
+sequelize.sync({ alter: true }).then(() => {
+  console.log('DB Synced ✅');
+  app.listen(3001, () => {
+    console.log('Server running on http://localhost:3001');
+  });
+}).catch((err) => {
+  console.error('Error syncing DB:', err);
 });

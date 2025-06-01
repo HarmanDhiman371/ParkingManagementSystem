@@ -1,0 +1,39 @@
+# Dependency directories
+/node_modules/
+/.pnp/
+.pnp.js
+
+# Testing
+/coverage/
+
+# Production build
+/build/
+
+# Miscellaneous
+.DS_Store
+.env         # Ignore main .env file too, not just environment-specific ones
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor-specific (optional but recommended)
+/.vscode/
+/.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS-specific (optional but safe)
+/Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Optional: lock files (if you're only using yarn or npm, ignore the other)
+/package-lock.json
+# or
+# /yarn.lock
