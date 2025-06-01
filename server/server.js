@@ -5,7 +5,33 @@ const cors = require('cors');
 
 app.use(cors());
 app.use(express.json());
+const http = require('http');
+const { Server } = require('socket.io');
 
+
+const server = http.createServer(app);
+
+// Setup socket.io server
+const io = new Server(server, {
+  cors: {
+    origin: '*',  // or your frontend URL
+    methods: ['GET', 'POST'],
+  },
+});
+
+io.on('connection', (socket) => {
+  console.log('a user connected:', socket.id);
+
+  // Listen for events from client (optional)
+  socket.on('subscribeToParking', (data) => {
+    console.log('Client subscribed to parking updates:', data);
+    // Optionally join room for filtered data, etc.
+  });
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected:', socket.id);
+  });
+});
 const { sequelize } = require('./models');
 
 app.use('/api/auth', authRoutes);
